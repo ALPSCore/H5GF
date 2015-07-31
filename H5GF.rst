@@ -189,12 +189,12 @@ Placeholder for other meshes, define if needed
 
     Therefore the grid might look like::
     
-    grid
-         \---(points)
-         \---kind 
-         \---(label)
-         \---<domain-specific property1> : statistics, beta, ...
-         \---<domain-specific property2> : statistics, beta, ...
+         grid
+              \---(points)
+              \---kind 
+              \---(label)
+              \---<domain-specific property1> : statistics, beta, ...
+              \---<domain-specific property2> : statistics, beta, ...
     
 
 > For defined kind - the domain specific attributes should primarily be used for reading and writing. 
