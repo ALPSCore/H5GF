@@ -50,15 +50,22 @@ The root level of an H5GF structure holds a number of groups and is organized as
 
     H5GF root
         \-- mesh
-        \-- data 
+        \-- data    
+           +-- (__complex__: int [])
         \-- (tail)
         \-- version
 
 data dataset
 ------------
 
-data is a multi-dimensional array with scalar (real or complex) values.
-If the Green's function is tensor-valued (e.g., matrix-valued), it is represented as a scalar-valued Green's function with additional indices: [G1(k),G2(k)] --> G(k,i) with i=1..2.
+data is a multi-dimensional array with scalar, real, values. In case of complex-valued Green's functions, the numbers are stored as real in one more dimension, with the last (fastest) dimension being the real and imaginary part. In addition, an attribute::
+
+    +-- __complex__
+    
+is set to 1 to specify that the data is complex.
+
+The ordering of the vector data is such that the first (slowest changing) index belongs to the first mesh (see mesh section), and the last (fastest changing) index belongs to the last mesh.
+
 
 mesh group
 ----------
