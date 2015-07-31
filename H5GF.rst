@@ -45,14 +45,13 @@ H5GF file entries description
 H5GF root level
 ---------------
 
-The root level of an H5GF structure holds a number of groups and is organized as follows:
+The root level of an H5GF structure holds a number of groups and is organized as follows::
 
-H5GF root
-
-    \-- mesh
-    \-- data
-    \-- (tail)
-    \-- version
+    H5GF root
+        \-- mesh
+        \-- data 
+        \-- (tail)
+        \-- version
 
 data dataset
 ------------
@@ -63,7 +62,7 @@ If the Green's function is tensor-valued (e.g., matrix-valued), it is represente
 mesh group
 ----------
 
-mesh contains the grids/meshes on which the Green's function is stored. There is one mesh per dimension of the Green's function data, stored at `/mesh/1`, `/mesh/2`, etc. The number of meshes corresponds to the number of dimensions of data; mesh `<n>` corresponds to the n-th index of the `data` dataset. Examples for grids or meshes are detailed below.
+mesh contains the grids/meshes on which the Green's function is stored. There is one mesh per dimension of the Green's function data, stored at `/mesh/1`, `/mesh/2`, etc. The number of meshes corresponds to the number of dimensions of data; mesh `<n>` corresponds to the n-th index of the `data` dataset. Examples for grids or meshes are detailed below::
 
     \-- mesh
          \-- 1
@@ -71,13 +70,13 @@ mesh contains the grids/meshes on which the Green's function is stored. There is
          \-- (3)
          \-- ...
 
-Every mesh is itself a group containing the following entries:
+Every mesh is itself a group containing the following entries::
 
-    \-- kind: char[??]
-    \-- (label: char[??])
-    \-- <domain-specific dataset>
-    \-- <domain-specific dataset>
-    \-- ...
+     \-- kind: char[??]
+     \-- (label: char[??])
+     \-- <domain-specific dataset>
+     \-- <domain-specific dataset>
+     \-- ...
 
 kind
 ~~~~
@@ -95,15 +94,13 @@ The domain-specific mesh data comprises datasets that describe the domain on whi
 
 Index mesh
 ~~~~~~~~~~
-
-    \---kind="INDEX"
-    \---N :int[] # dimension
-
-Index meshes describe simple indices (like spin or orbital indices).
+Index meshes describe simple indices (like spin or orbital indices)::
+      \---kind="INDEX"
+      \---N :int[] # dimension
 
 Matsubara frequency mesh
 ~~~~~~~~~~~~~~~~~~~~~~~~
-
+::
     \---kind="MATSUBARA"
     \---N :int[] # max. Matsubara frequency index
     \---statistics :int[] # 0:Bosonic 1:Fermionic
@@ -127,7 +124,7 @@ How about removing positive_only and replacing it with N_min (and N correspondin
 
 Imaginary time mesh
 ~~~~~~~~~~~~~~~~~~~
-
+::
     \---kind="IMAGINARY_TIME"
     \---N :int[] # number of time slices
     \---statistics :int[] # 0:Bosonic 1:Fermionic
