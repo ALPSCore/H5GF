@@ -94,13 +94,17 @@ The domain-specific mesh data comprises datasets that describe the domain on whi
 
 Index mesh
 ~~~~~~~~~~
+
 Index meshes describe simple indices (like spin or orbital indices)::
+
       \---kind="INDEX"
       \---N :int[] # dimension
 
 Matsubara frequency mesh
 ~~~~~~~~~~~~~~~~~~~~~~~~
+
 ::
+
     \---kind="MATSUBARA"
     \---N :int[] # max. Matsubara frequency index
     \---statistics :int[] # 0:Bosonic 1:Fermionic
@@ -124,7 +128,9 @@ How about removing positive_only and replacing it with N_min (and N correspondin
 
 Imaginary time mesh
 ~~~~~~~~~~~~~~~~~~~
+
 ::
+
     \---kind="IMAGINARY_TIME"
     \---N :int[] # number of time slices
     \---statistics :int[] # 0:Bosonic 1:Fermionic
@@ -138,10 +144,14 @@ If the optional parameter `points' is specified, they need to be verified upon r
 Real frequency mesh
 ~~~~~~~~~~~~~~~~~~~
 
+::
+
     \---kind="REAL_FREQUENCY"
     \---points :double[N] # location of points on the real frequency axis
 
 ### Legendre mesh
+
+::
 
     \---kind="LEGENDRE"
     \---N :int[] # number of legendre points
@@ -151,12 +161,16 @@ Real frequency mesh
 momentum index mesh
 ~~~~~~~~~~~~~~~~~~~
 
+::
+
     \---kind="MOMENTUM_INDEX"
     \---points : double[N][spatial_dimension] # location of the k-points, for N k-points in spatial_dimension dimensions. The entries of this matrix specify the location of the points in the Brillouin zone.
 
 
 real space index mesh
 ~~~~~~~~~~~~~~~~~~~~~
+
+::
 
     \---kind="REAL_SPACE_INDEX"
     \---points : double[N][spatial_dimension] # location of the real space points, for N real space points in spatial_dimension dimensions. The entries of this matrix specify the location of the points in the Brillouin zone.
@@ -198,6 +212,8 @@ High frequency tails are only defined if there is only one Matsubara/imaginary t
 
 For single frequency Green's functions, the tails are stored as matrices with dimensionality equal to the number of non-frequency indices.
  
+ ::
+ 
     \-- (tail)
          \-- descriptor: string="INFINITY_POLE"
          \-- (0) # c_0 matrix
@@ -212,6 +228,8 @@ The descriptor specifies the type of high frequency expansion. For the numerical
 
 version
 -------
+
+::
     \-- version
         \-- major: int[]
         \-- minor: int[]
