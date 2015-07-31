@@ -32,7 +32,8 @@ HDF5 files are organized into groups and datasets, summarized as objects, which 
 `#comment`
    A comment briefly descibing the group or dataset.
 
-# General organization
+General organization
+====================
 
 H5GF defines an organization of the HDF5 file or a part thereof into groups, datasets, and attributes. The root level of the H5GF structure may coincide with the root of the HDF5 file or be an arbitrary group inside the HDF5 tree. A number of groups are defined at the H5GF root level. Several levels of subgroups will exist inside the H5GF structure.
 
