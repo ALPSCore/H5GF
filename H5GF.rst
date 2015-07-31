@@ -120,10 +120,9 @@ For bosons:  $n=0..(N-1)$ (N grid points) if only positive frequencies are store
 
 If the optional parameter `points' is specified, they need to be verified upon reading.
 
-> Suggestion: split this mesh into for disjoint meshes, one for fermions, one for bosons, each for specifying both positive and negative or only positive frequencies.
+     Suggestion: split this mesh into for disjoint meshes, one for fermions, one for bosons, each for specifying both positive and negative or only positive frequencies.
 
-
-> Andrey: [Q] There seem to be a number of conditionals  - this is error-susceptible for future implementations.
+    Andrey: [Q] There seem to be a number of conditionals  - this is error-susceptible for future implementations.
 How about removing positive_only and replacing it with N_min (and N correspondingly with N_max), and defining grid as [N_min, N_max)? This would simplify conventions.
 
 Imaginary time mesh
@@ -182,21 +181,21 @@ Placeholder for other meshes, define if needed
  2. Non-equidistant imaginary time meshes
  3. Power meshes
 
-> // Andrey I would like to strongly advocate to dump points in the grids. The pros : 
+    Andrey: I would like to strongly advocate to dump points in the grids. The pros : 
 
-> 1. It will reduce the dependency on domain specific parameters. Real world example : TRIQS-1.0 had 'half-bin' grids in and TRIQS-1.2 does not. The old data therefore is not protected to be loaded/saved automatically. So this will guarantee the compatibility of future versions of the format with the very first one (5 years down the road we won't need to look at how the specific parameter was defined if our goal is just to compare with the data).
+    1. It will reduce the dependency on domain specific parameters. Real world example : TRIQS-1.0 had 'half-bin' grids in and TRIQS-1.2 does not. The old data therefore is not protected to be loaded/saved automatically. So this will guarantee the compatibility of future versions of the format with the very first one (5 years down the road we won't need to look at how the specific parameter was defined if our goal is just to compare with the data).
 
-> 2. It is more human-readable and guarantees hardcoded mapping between physical points and data in the file and not in the code (without converters from codes that may suffer from human error). The data is directly plottable - important for benchmarks.  
+    2. It is more human-readable and guarantees hardcoded mapping between physical points and data in the file and not in the code (without converters from codes that may suffer from human error). The data is directly plottable - important for benchmarks.  
 
-> Therefore the grid might look like
-```
-grid
-     \---(points)
-     \---kind 
-     \---(label)
-     \---<domain-specific property1> : statistics, beta, ...
-     \---<domain-specific property2> : statistics, beta, ...
-```
+    Therefore the grid might look like::
+    
+    grid
+         \---(points)
+         \---kind 
+         \---(label)
+         \---<domain-specific property1> : statistics, beta, ...
+         \---<domain-specific property2> : statistics, beta, ...
+    
 
 > For defined kind - the domain specific attributes should primarily be used for reading and writing. 
 Main cons : redundancy for some grids, for example the Matsubara one. 
