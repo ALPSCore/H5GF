@@ -6,7 +6,7 @@ Our goal is to define a versatile Green's function format, H5GF,  that is portab
 File format
 ===========
 
-Green's functions are structures are stored in the HDF5 file format. We recommend using [hdf5 version 2](https://www.hdfgroup.org/HDF5/doc/H5.format.html) or later.
+Green's functions are structures are stored in the HDF5 file format. We recommend using `hdf5 version 2 <https://www.hdfgroup.org/HDF5/doc/H5.format.html>` or later.
 
 Notation and Naming
 ===================
