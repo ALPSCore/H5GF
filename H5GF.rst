@@ -74,22 +74,25 @@ mesh contains the grids/meshes on which the Green's function is stored. There is
 
     \-- mesh
          \-- 1
+             +-- kind
          \-- (2)
+             +-- kind
          \-- (3)
+             +-- kind
          \-- ...
 
 Every mesh is itself a group containing the following entries::
 
-     \-- kind: char[??]
-     \-- (label: char[??])
-     \-- <domain-specific dataset>
-     \-- <domain-specific dataset>
-     \-- ...
+     \+-- kind: string
+     \--- (label: string)
+     \--- <domain-specific dataset>
+     \--- <domain-specific dataset>
+     \--- ...
 
 kind
 ~~~~
 
-A string (character array) uniquely identifying the domain of the mesh and the meaning of the mesh-specific datasets that define the parameters of the mesh.
+A string attribute uniquely identifying the domain of the mesh and the meaning of the mesh-specific datasets that define the parameters of the mesh.
 
 label
 ~~~~~
@@ -105,7 +108,7 @@ Index mesh
 
 Index meshes describe simple indices (like spin or orbital indices)::
 
-      \---kind="INDEX"
+      \+--kind: string="INDEX"
       \---N :int[] # dimension
 
 Matsubara frequency mesh
@@ -113,7 +116,7 @@ Matsubara frequency mesh
 
 ::
 
-    \---kind="MATSUBARA"
+    \+--kind:string="MATSUBARA"
     \---N :int[] # max. Matsubara frequency index
     \---statistics :int[] # 0:Bosonic 1:Fermionic
     \---beta :double[] # inverse temperature
@@ -138,7 +141,7 @@ Imaginary time mesh
 
 ::
 
-    \---kind="IMAGINARY_TIME"
+    \+--kind:string="IMAGINARY_TIME"
     \---N :int[] # number of time slices
     \---statistics :int[] # 0:Bosonic 1:Fermionic
     \---beta :double[] # inverse temperature
@@ -153,14 +156,14 @@ Real frequency mesh
 
 ::
 
-    \---kind="REAL_FREQUENCY"
+    \+--kind="REAL_FREQUENCY"
     \---points :double[N] # location of points on the real frequency axis
 
 ### Legendre mesh
 
 ::
 
-    \---kind="LEGENDRE"
+    \+--kind:string="LEGENDRE"
     \---N :int[] # number of legendre points
     \---beta: double[] #inverse temperature
     \---statistics :int[] # 0:Bosonic 1:Fermionic
@@ -170,7 +173,7 @@ momentum index mesh
 
 ::
 
-    \---kind="MOMENTUM_INDEX"
+    \+--kind:string="MOMENTUM_INDEX"
     \---points : double[N][spatial_dimension] # location of the k-points, for N k-points in spatial_dimension dimensions. The entries of this matrix specify the location of the points in the Brillouin zone.
 
 
