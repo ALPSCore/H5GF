@@ -205,7 +205,9 @@ Main cons : redundancy for some grids, for example the Matsubara one.
 tail group
 ----------
 The tail group contains the expansion of the Green's function around Matsubara frequency infinity, written as
+
 math::
+
 G(i\omega_n) = c_0 + c_1/(i\omega_n) + c_2/(i\omega_n)^2+...
 
 High frequency tails are only defined if there is only one Matsubara/imaginary time/ real time/ real frequency axis. They are not defined for multiple-frequency vertex functions.
@@ -230,6 +232,7 @@ version
 -------
 
 ::
+
     \-- version
         \-- major: int[]
         \-- minor: int[]
