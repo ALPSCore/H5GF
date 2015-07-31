@@ -1,10 +1,16 @@
-# Objective
+Objective
+=========
+
 Our goal is to define a versatile Green's function format, H5GF,  that is portable and interoperable across different types of codes, algorithms, and research groups. It should be applicable to most types of correlation functions, and extendable in future versions. 
 
-# File format
+File format
+===========
+
 Green's functions are structures are stored in the HDF5 file format. We recommend using [hdf5 version 2](https://www.hdfgroup.org/HDF5/doc/H5.format.html) or later.
 
-# Notation and Naming
+Notation and Naming
+===================
+
 HDF5 files are organized into groups and datasets, summarized as objects, which form a tree structure with the datasets as leaves. Attributes can be attached to each object. The H5GF Green's function file format specification adopts this naming and uses the following notation to depict the tree or its subtrees:
 
 
@@ -33,9 +39,11 @@ H5GF defines an organization of the HDF5 file or a part thereof into groups, dat
 The H5GF structure is allowed to possess non-specified groups, datasets, or attributes that contain additional information such as application-specific parameters or data structures, leaving scope for future extensions or application specific features.
 
 
-#H5GF file entries description
+H5GF file entries description
+=============================
 
-##H5GF root level
+H5GF root level
+---------------
 
 The root level of an H5GF structure holds a number of groups and is organized as follows:
 
@@ -46,11 +54,15 @@ H5GF root
     \-- (tail)
     \-- version
 
-## data dataset
+data dataset
+------------
+
 data is a multi-dimensional array with scalar (real or complex) values.
 If the Green's function is tensor-valued (e.g., matrix-valued), it is represented as a scalar-valued Green's function with additional indices: [G1(k),G2(k)] --> G(k,i) with i=1..2.
 
-## mesh group
+mesh group
+----------
+
 mesh contains the grids/meshes on which the Green's function is stored. There is one mesh per dimension of the Green's function data, stored at `/mesh/1`, `/mesh/2`, etc. The number of meshes corresponds to the number of dimensions of data; mesh `<n>` corresponds to the n-th index of the `data` dataset. Examples for grids or meshes are detailed below.
 
     \-- mesh
@@ -67,23 +79,30 @@ Every mesh is itself a group containing the following entries:
     \-- <domain-specific dataset>
     \-- ...
 
-###kind
+kind
+~~~~
+
 A string (character array) uniquely identifying the domain of the mesh and the meaning of the mesh-specific datasets that define the parameters of the mesh.
 
-###label
+label
+~~~~~
 An optional string labeling the index.
 
-## Domain-specific mesh data
+Domain-specific mesh data
+-------------------------
+
 The domain-specific mesh data comprises datasets that describe the domain on which this particular index of the green's function is defined. Examples are:  k-meshes defined in the Brillouin zone; frequency meshes defined on bosonic or fermionic Matsubara frequencies; Legendre meshes; time (real or imaginary) meshes; and index meshes (to represent tensor-valued functions).
 
-### Index mesh
+Index mesh
+~~~~~~~~~~
 
     \---kind="INDEX"
     \---N :int[] # dimension
 
 Index meshes describe simple indices (like spin or orbital indices).
 
-### Matsubara frequency mesh
+Matsubara frequency mesh
+~~~~~~~~~~~~~~~~~~~~~~~~
 
     \---kind="MATSUBARA"
     \---N :int[] # max. Matsubara frequency index
@@ -106,7 +125,8 @@ If the optional parameter `points' is specified, they need to be verified upon r
 > Andrey: [Q] There seem to be a number of conditionals  - this is error-susceptible for future implementations.
 How about removing positive_only and replacing it with N_min (and N correspondingly with N_max), and defining grid as [N_min, N_max)? This would simplify conventions.
 
-### Imaginary time mesh
+Imaginary time mesh
+~~~~~~~~~~~~~~~~~~~
 
     \---kind="IMAGINARY_TIME"
     \---N :int[] # number of time slices
@@ -118,7 +138,8 @@ How about removing positive_only and replacing it with N_min (and N correspondin
 
 If the optional parameter `points' is specified, they need to be verified upon reading.
 
-### Real frequency mesh
+Real frequency mesh
+~~~~~~~~~~~~~~~~~~~
 
     \---kind="REAL_FREQUENCY"
     \---points :double[N] # location of points on the real frequency axis
@@ -130,18 +151,21 @@ If the optional parameter `points' is specified, they need to be verified upon r
     \---beta: double[] #inverse temperature
     \---statistics :int[] # 0:Bosonic 1:Fermionic
 
-### momentum index mesh
+momentum index mesh
+~~~~~~~~~~~~~~~~~~~
 
     \---kind="MOMENTUM_INDEX"
     \---points : double[N][spatial_dimension] # location of the k-points, for N k-points in spatial_dimension dimensions. The entries of this matrix specify the location of the points in the Brillouin zone.
 
 
-### real space index mesh
+real space index mesh
+~~~~~~~~~~~~~~~~~~~~~
 
     \---kind="REAL_SPACE_INDEX"
     \---points : double[N][spatial_dimension] # location of the real space points, for N real space points in spatial_dimension dimensions. The entries of this matrix specify the location of the points in the Brillouin zone.
 
-### Placeholder for other meshes, define if needed
+Placeholder for other meshes, define if needed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  1. Non-equidistant frequency meshes
  2. Non-equidistant imaginary time meshes
@@ -167,7 +191,8 @@ grid
 Main cons : redundancy for some grids, for example the Matsubara one. 
 </pre>
 
-## tail group
+tail group
+----------
 The tail group contains the expansion of the Green's function around Matsubara frequency infinity, written as
 math::
 G(i\omega_n) = c_0 + c_1/(i\omega_n) + c_2/(i\omega_n)^2+...
@@ -188,8 +213,8 @@ For Green's functions which are not stored in Matsubara frequencies, these coeff
 
 The descriptor specifies the type of high frequency expansion. For the numerically known high frequency behavior described here, it should be "INFINITY_POLE"
 
-## version
-
+version
+-------
     \-- version
         \-- major: int[]
         \-- minor: int[]
@@ -198,6 +223,7 @@ The descriptor specifies the type of high frequency expansion. For the numerical
 
 Version of the hdf5 specification this data file adheres to, with minor and major version. Current minor version is 1, current major version is 0. reference contains a string pointing to the URL of this document. Originator is a program specific string that describes the program that wrote this file.
 
-# Future extensions
+Future extensions
+=================
 Future versions of this document may introduce new meshes and tail formats. Existing meshes and tail formats will only be changed at each major release version. 
 Backward compatibility is maintained between minor versions. 
