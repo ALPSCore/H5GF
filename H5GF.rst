@@ -58,7 +58,7 @@ The root level of an H5GF structure holds a number of groups and is organized as
 data dataset
 ------------
 
-data is a multi-dimensional array with scalar, real, values. In case of complex-valued Green's functions, the numbers are stored as real in one more dimension, with the last (fastest) dimension being the real and imaginary part. In addition, an attribute::
+data is a multi-dimensional array with scalar, real, values. The number of dimension of the data is also stored in /mesh/N (see below). In case of complex-valued Green's functions, the numbers are stored as real in one more dimension, with the last (fastest) dimension being the real and imaginary part.  In addition, an attribute::
 
     +-- __complex__
     
@@ -70,9 +70,10 @@ The ordering of the vector data is such that the first (slowest changing) index 
 mesh group
 ----------
 
-mesh contains the grids/meshes on which the Green's function is stored. There is one mesh per dimension of the Green's function data, stored at `/mesh/1`, `/mesh/2`, etc. The number of meshes corresponds to the number of dimensions of data; mesh `<n>` corresponds to the n-th index of the `data` dataset. Examples for grids or meshes are detailed below::
+mesh contains the grids/meshes on which the Green's function is stored. There is one mesh per dimension of the Green's function data, stored at `/mesh/1`, `/mesh/2`, etc. The dimensions of the data must correspond to the number N of meshes; mesh `<n>` corresponds to the n-th index of the `data` dataset. Examples for grids or meshes are detailed below::
 
     \-- mesh
+         \-- N: int[] # number of meshes
          \-- 1
              +-- kind
          \-- (2)
