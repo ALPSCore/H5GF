@@ -200,12 +200,14 @@ G(i\omega_n) = c_0 + c_1/(i\omega_n) + c_2/(i\omega_n)^2+...
 
 High frequency tails are only defined if there is only one Matsubara/imaginary time/ real time/ real frequency axis. They are not defined for multiple-frequency vertex functions.
 
-For single frequency Green's functions, the tails are stored as matrices with dimensionality equal to the number of non-frequency indices.
+For single frequency Green's functions, the tails are stored as matrices with dimensionality equal to the number of non-frequency indices. Their arrangement is as for the main data, see 'data' above.
  
  ::
  
     \-- (tail)
-         \-- descriptor: string="INFINITY_POLE"
+         \-- descriptor: string="INFINITY_TAIL"
+         \-- min_coeff: int
+         \-- max_coeff: int
          \-- (0) # c_0 matrix
          \-- (1) # c_1 matrix
          \-- (2) # c_2 matrix
@@ -214,7 +216,9 @@ For single frequency Green's functions, the tails are stored as matrices with di
 
 For Green's functions which are not stored in Matsubara frequencies, these coefficients describe the high frequency tails of the function transformed to Matsubara frequencies.
 
-The descriptor specifies the type of high frequency expansion. For the numerically known high frequency behavior described here, it should be "INFINITY_POLE"
+The descriptor specifies the type of high frequency expansion. For the numerically known high frequency behavior described here, it should be "INFINITY_TAIL"
+
+The minimum and maximum high frequency expansion coefficient indices are stored in min_coeff and max_coeff. min_coeff=0 corresponds to a constant term stored as "0", min_coeff=1 to the 1/(i omega_n) term stored as "1", etc.
 
 version
 -------
