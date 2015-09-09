@@ -206,8 +206,8 @@ For single frequency Green's functions, the tails are stored as matrices with di
  
     \-- (tail)
          \-- descriptor: string="INFINITY_TAIL"
-         \-- min_coeff: int
-         \-- max_coeff: int
+         \-- min_tail_order: int
+         \-- max_tail_order: int
          \-- (0) # c_0 matrix
          \-- (1) # c_1 matrix
          \-- (2) # c_2 matrix
@@ -218,7 +218,7 @@ For Green's functions which are not stored in Matsubara frequencies, these coeff
 
 The descriptor specifies the type of high frequency expansion. For the numerically known high frequency behavior described here, it should be "INFINITY_TAIL"
 
-The minimum and maximum high frequency expansion coefficient indices are stored in min_coeff and max_coeff. min_coeff=0 corresponds to a constant term stored as "0", min_coeff=1 to the 1/(i omega_n) term stored as "1", etc.
+The minimum and maximum high frequency expansion coefficient indices are stored in min_tail_order and max_tail_order. min_tail_order=0 corresponds to a constant term stored as "0", min_tail_order=1 to the 1/(i omega_n) term stored as "1", etc.
 
 version
 -------
