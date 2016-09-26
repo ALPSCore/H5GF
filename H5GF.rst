@@ -156,7 +156,8 @@ Real frequency mesh
     \+--kind="REAL_FREQUENCY"
     \---points :double[N] # location of points on the real frequency axis
 
-### Legendre mesh
+Legendre mesh
+~~~~~~~~~~~~~
 
 ::
 
