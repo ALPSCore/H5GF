@@ -115,14 +115,15 @@ Index meshes describe simple indices (like spin or orbital indices)::
 Sparse multi-index mesh
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Mesh collecting $N$ indices $i_1, ..., i_n$ into a single multi-index $\alpha$.  This allows
+A mesh compacting (mapping) $m$ indices $i_1, ..., i_m$ into a single multi-index $\alpha$.  This allows one
 to store only non-zero components of a Green's function.  Any component not specified explicitly
-is assumed to be zero.
+is assumed to be zero. (Essentially, the corresponding sub-array of the Green's function is treated as a
+sparse matrix in the `"Dictionary of keys" (DOK) format <https://en.wikipedia.org/wiki/Sparse_matrix#Dictionary_of_keys_.28DOK.29>`_.)
 
-For example, let's assume that we store the four-point Green's function $G_{ijkl}$ for a
-two-orbital model: this means each index in principle runs from $0, ..., 3$ such that the
-`shape` field is `[4, 4, 4, 4]`.  Let us further assume that only terms for $i=j$ and $k=l$
-contribute.  We can then store this as $G_\alpha$ with the following mapping:
+**EXAMPLE:** Let's assume that we store the four-point Green's function $G_{ijkl}$  (that is, $m=4$) for a
+three-orbital model: this means that each index in principle runs from $0, ..., 5$ such that the
+`shape` field (see below) is `[6, 6, 6, 6]`.  Let us further assume that only terms for $i=j$ and $k=l$
+contribute, leaving $N=36$ non-zero values. We can then store this as $G_\alpha$ with the following mapping:
 
    ======== === === === ===
      alpha   i   j   k   l
@@ -133,16 +134,16 @@ contribute.  We can then store this as $G_\alpha$ with the following mapping:
    -------- --- --- --- ---
        ...
    ------------------------
-        14   3   3   2   2
-        15   3   3   3   3
+        34   5   5   4   4
+        35   5   5   5   5
    ======== === === === ===
 
 The formal specification is as follows::
 
     \+--kind : string="MULTI_INDEX"
-    \---shape : int[index_dimension]           # Upper bound of the index tuple's elements
-    \---points : int[N][index_dimension]       # Index tuple of non-zero elements in lexicographic order
-    \---symm : RESERVED                        # Reserved for later use of symmetries
+    \---shape : int[m]           # Upper bounds of the index elements, for each of the m indices
+    \---points : int[N][m]       # N index tuples (each consisting of m indices) of non-zero GF elements
+    \---(symm : RESERVED)        # Reserved for future use of symmetries
 
 
 Matsubara frequency mesh
@@ -265,7 +266,7 @@ version
         \-- reference: string
         \-- originator: string
 
-Version of the hdf5 specification this data file adheres to, with minor and major version. Current minor version is 1, current major version is 0. reference contains a string pointing to the URL of this document. Originator is a program specific string that describes the program that wrote this file.
+Version of the hdf5 specification this data file adheres to, with minor and major version. Current minor version is 2, current major version is 0. reference contains a string pointing to the URL of this document. Originator is a program specific string that describes the program that wrote this file.
 
 Future extensions
 =================
