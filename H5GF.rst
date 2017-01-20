@@ -112,6 +112,40 @@ Index meshes describe simple indices (like spin or orbital indices)::
       \+--kind: string="INDEX"
       \---N :int[] # dimension
 
+Sparse multi-index mesh
+~~~~~~~~~~~~~~~~~~~~~~~
+
+A mesh compacting (mapping) $m$ indices $i_1, ..., i_m$ into a single multi-index $\alpha$.  This allows one
+to store only non-zero components of a Green's function.  Any component not specified explicitly
+is assumed to be zero. (Essentially, the corresponding sub-array of the Green's function is treated as a
+sparse matrix in the `"Dictionary of keys" (DOK) format <https://en.wikipedia.org/wiki/Sparse_matrix#Dictionary_of_keys_.28DOK.29>`_.)
+
+**EXAMPLE:** Let's assume that we store the four-point Green's function $G_{ijkl}$  (that is, $m=4$) for a
+three-orbital model: this means that each index in principle runs from $0, ..., 5$ such that the
+`shape` field (see below) is `[6, 6, 6, 6]`.  Let us further assume that only terms for $i=j$ and $k=l$
+contribute, leaving $N=36$ non-zero values. We can then store this as $G_\alpha$ with the following mapping:
+
+   ======== === === === ===
+     alpha   i   j   k   l
+   ======== === === === ===
+         0   0   0   0   0
+         1   0   0   1   1
+         2   0   0   2   2
+   -------- --- --- --- ---
+       ...
+   ------------------------
+        34   5   5   4   4
+        35   5   5   5   5
+   ======== === === === ===
+
+The formal specification is as follows::
+
+    \+--kind : string="MULTI_INDEX"
+    \---shape : int[m]           # Upper bounds of the index elements, for each of the m indices
+    \---points : int[N][m]       # N index tuples (each consisting of m indices) of non-zero GF elements
+    \---(symm : RESERVED)        # Reserved for future use of symmetries
+
+
 Matsubara frequency mesh
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -232,7 +266,7 @@ version
         \-- reference: string
         \-- originator: string
 
-Version of the hdf5 specification this data file adheres to, with minor and major version. Current minor version is 1, current major version is 0. reference contains a string pointing to the URL of this document. Originator is a program specific string that describes the program that wrote this file.
+Version of the hdf5 specification this data file adheres to, with minor and major version. Current minor version is 2, current major version is 0. reference contains a string pointing to the URL of this document. Originator is a program specific string that describes the program that wrote this file.
 
 Future extensions
 =================
