@@ -119,27 +119,29 @@ Mesh collecting $N$ indices $i_1, ..., i_n$ into a single multi-index $\alpha$. 
 to store only non-zero components of a Green's function.  Any component not specified explicitly
 is assumed to be zero.
 
-For example, let's assume that we store the four-point Green's function $G_{ijkl}$, where only
-terms for $i=j$ and $k=l$ contribute.  We can then store this as $G_\alpha$ with the following
-mapping:
+For example, let's assume that we store the four-point Green's function $G_{ijkl}$ for a
+two-orbital model: this means each index in principle runs from $0, ..., 3$ such that the
+`shape` field is `[4, 4, 4, 4]`.  Let us further assume that only terms for $i=j$ and $k=l$
+contribute.  We can then store this as $G_\alpha$ with the following mapping:
 
    ======== === === === ===
      alpha   i   j   k   l
    ======== === === === ===
          0   0   0   0   0
          1   0   0   1   1
-         2   1   1   0   0
-         3   1   1   1   1
+         2   0   0   2   2
    -------- --- --- --- ---
-     etc.
-   ========================
+       ...
+   ------------------------
+        14   3   3   2   2
+        15   3   3   3   3
+   ======== === === === ===
 
-The formal specification is as follows:
-
-::
+The formal specification is as follows::
 
     \+--kind : string="MULTI_INDEX"
-    \---points : int[N][index_dimension]       # Index tuple of non-zero element
+    \---shape : int[index_dimension]           # Upper bound of the index tuple's elements
+    \---points : int[N][index_dimension]       # Index tuple of non-zero elements in lexicographic order
     \---symm : RESERVED                        # Reserved for later use of symmetries
 
 
