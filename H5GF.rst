@@ -112,6 +112,37 @@ Index meshes describe simple indices (like spin or orbital indices)::
       \+--kind: string="INDEX"
       \---N :int[] # dimension
 
+Sparse multi-index mesh
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Mesh collecting $N$ indices $i_1, ..., i_n$ into a single multi-index $\alpha$.  This allows
+to store only non-zero components of a Green's function.  Any component not specified explicitly
+is assumed to be zero.
+
+For example, let's assume that we store the four-point Green's function $G_{ijkl}$, where only
+terms for $i=j$ and $k=l$ contribute.  We can then store this as $G_\alpha$ with the following
+mapping:
+
+   ======== === === === ===
+     alpha   i   j   k   l
+   ======== === === === ===
+         0   0   0   0   0
+         1   0   0   1   1
+         2   1   1   0   0
+         3   1   1   1   1
+   -------- --- --- --- ---
+     etc.
+   ========================
+
+The formal specification is as follows:
+
+::
+
+    \+--kind : string="MULTI_INDEX"
+    \---points : int[N][index_dimension]       # Index tuple of non-zero element
+    \---symm : RESERVED                        # Reserved for later use of symmetries
+
+
 Matsubara frequency mesh
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
