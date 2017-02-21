@@ -217,6 +217,27 @@ real space index mesh
     \---kind="REAL_SPACE_INDEX"
     \---points : double[N][spatial_dimension] # location of the real space points, for N real space points in spatial_dimension dimensions. The entries of this matrix specify the location of the points in the Brillouin zone.
 
+orthogonal basis mesh
+~~~~~~~~~~~~~~~~~~~~~
+
+::
+
+    \+--kind="ORTHOGONAL_BASIS_MESH"
+    \---N :int[] # number of basis functions
+    \---k :int[] # order of piecewise polynomials. For k=3, a basis function is defined as a third-order polynomial in each subdomain.
+    \---ns :int[] # number of subdomains
+    \---domain_edges :double[ns+1] # location of edges of domains in increasing order. The first and last elements should be -1 and 1, respectively.
+    \---coefficients : double[N][ns][k+1] # coefficients of polynomials 
+    \---beta: double[] #inverse temperature
+    \---statistics :int[] # 0:Bosonic 1:Fermionic
+
+This defined a numerical orthogonal basis set whose basis functions are defined as piecewise polynomials.
+Like Legendre polynomials, the basis functions are defined on the interval [-1,1] (x = 2*tau/beta - 1).
+The interval is split into ns sub-domains.
+In the $m$-th domain (m=0, 1, ..., ns), the $n$-th basis function is defined as \sum_{l=0}^k coefficients[n][m][l]*(x - domain_edges[m])^l.
+The basis functions are required to be orthgonal on the interval [-1,1] (they are not necessary normalized).
+This mesh is a natural extension of the legendre mesh.
+
 Placeholder for other meshes, define if needed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
